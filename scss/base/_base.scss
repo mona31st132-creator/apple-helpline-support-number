@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* ===============================
+   LUXURY COLOR VARIABLES
+================================ */
+$white: #f4c2c2; // Ivory white
+$black: #1c1b1a; // Charcoal black
+$title-color: #2b2a28; // Premium dark grey
+$text-color: #6b6763; // Muted luxury grey
+$border-color: #e6e1db; // Soft divider
+
+$primary: #b59a6a; // Champagne gold
+$primary-dark: #9c8356; // Dark gold
+$secondary: #3a3a38;
+
+$yellow: #d4af37; // Star gold
+
+/* ===============================
+   FONT & SIZE VARIABLES
+================================ */
+$fw-600: 600;
+$fs-10: 10px;
+$fs-15: 15px;
+$fs-18: 18px;
+$fs-20: 20px;
+$fs-30: 30px;
+
+$transition: all 0.3s ease;
+
+/* ===============================
+   MIXINS
+================================ */
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin border($position) {
+  @if $position == "bottom" {
+    border-bottom: 1px solid $border-color;
+  }
+}
+
+@mixin media($size) {
+  @if $size == "md" {
+    @media (min-width: 768px) {
+      @content;
+    }
+  }
+  @if $size == "lg" {
+    @media (min-width: 992px) {
+      @content;
+    }
+  }
+}
+
+/* ===============================
+   BASE BODY STYLES
+================================ */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: $white;
+  color: $text-color;
+
+  /* ===== Scrollbar Luxury Style ===== */
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $white;
+    border-left: 1px solid $border-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, $primary, $primary-dark);
+    border: 3px solid $white;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $primary-dark;
+  }
+
+  /* ===== Typography ===== */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: $title-color;
+    letter-spacing: 0.3px;
+  }
+
+  h2.main-title,
+  .product-title {
+    font-weight: $fw-600;
+  }
+
+  h2.main-title {
+    font-size: $fs-18;
+    padding-bottom: $fs-10;
+    margin-bottom: $fs-30;
+    @include border("bottom");
+  }
+
+  .product-title {
+    font-size: $fs-15;
+    text-transform: capitalize;
+  }
+
+  p {
+    color: $text-color;
+    line-height: 1.7;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: $transition;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  /* ===== Rating Stars ===== */
+  .rate {
+    display: flex;
+    gap: 2px;
+
+    span {
+      color: $yellow;
+    }
+  }
+
+  /* ===== Buttons & Icons ===== */
+  .buy-icon {
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  }
+
+  /* ===== Scroll To Top ===== */
+  .scroll-to-top {
+    position: fixed;
+    bottom: -2.5rem;
+    right: 1.5rem;
+    z-index: 99;
+    cursor: pointer;
+    background-color: $primary;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: $fs-20;
+    color: $white;
+    border-radius: 50%;
+    transition: $transition;
+    box-shadow: 0 8px 25px rgba(181, 154, 106, 0.35);
+
+    @include flex-center;
+
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-2px);
+    }
+
+    &.show {
+      bottom: 3rem;
+
+      @include media("md") {
+        bottom: 6rem;
+      }
+    }
+  }
+
+  /* ===== Desktop Close Icon ===== */
+  @include media("lg") {
+    %close-icon {
+      display: block;
+      text-align: end;
+      font-size: $fs-20;
+      margin-bottom: $fs-10;
+
+      svg {
+        cursor: pointer;
+        color: $title-color;
+
+        &:hover {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
